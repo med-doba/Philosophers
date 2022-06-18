@@ -6,7 +6,7 @@
 /*   By: med-doba <med-doba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 14:31:01 by med-doba          #+#    #+#             */
-/*   Updated: 2022/06/18 16:47:30 by med-doba         ###   ########.fr       */
+/*   Updated: 2022/06/18 18:05:45 by med-doba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,15 @@ typedef struct node{
 	int			data;
 	int			index;
 	struct node	*next;
+
 }t_ps;
+
+typedef struct philo{
+	int	poste;
+	int	fork_right;
+	int	fork_left;
+
+}t_philo;
 
 typedef struct p_var{
 	char	**ptr;
