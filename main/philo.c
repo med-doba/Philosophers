@@ -6,7 +6,7 @@
 /*   By: med-doba <med-doba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 14:30:24 by med-doba          #+#    #+#             */
-/*   Updated: 2022/06/18 18:08:22 by med-doba         ###   ########.fr       */
+/*   Updated: 2022/06/18 19:32:57 by med-doba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,10 @@ void	ft_arg()
 	exit(1);
 }
 
-void	ft_create_threads(int *tab)
+void	ft_create_threads(int tab)
 {
-	
+	// pthread_t	philo_id[tab];
+	printf("tab = %d\n", tab);
 }
 
 int main(int ac, char **av)
