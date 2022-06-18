@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_end.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: med-doba <med-doba@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 15:45:32 by med-doba          #+#    #+#             */
-/*   Updated: 2022/06/18 17:05:44 by med-doba         ###   ########.fr       */
+/*   Updated: 2022/06/18 22:55:30 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,7 @@
 void	ft_end(char **str, t_var * my)
 {
 	ft_putendl_fd("Error", 2);
-	str = NULL;
-	// if (str != NULL)
-	// 	// free(str);
+	(void)str;
 	free(my);
 	exit(1);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: med-doba <med-doba@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 14:30:24 by med-doba          #+#    #+#             */
-/*   Updated: 2022/06/18 19:32:57 by med-doba         ###   ########.fr       */
+/*   Updated: 2022/06/18 22:58:02 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,34 @@ void	ft_arg()
 	exit(1);
 }
 
+void	*ft_handler(void *arg)
+{
+
+	printf("hamboula zamel bghani n7wih << %s\n", (char *)arg);
+	return (NULL);
+}
+
 void	ft_create_threads(int tab)
 {
-	// pthread_t	philo_id[tab];
-	printf("tab = %d\n", tab);
+	int			i;
+	pthread_t	*philo_id;
+
+	i = 0;
+	philo_id = (pthread_t *)malloc(sizeof(pthread_t) * tab);
+	if (philo_id == NULL)
+		exit(1);
+	while (i < tab)
+	{
+		pthread_create(philo_id + i, NULL, &ft_handler, NULL);
+		i++;
+	}
+	i = 0;
+	while (i < tab)
+	{
+		pthread_join(philo_id[i], NULL);
+		i++;
+	}
+	free(philo_id);
 }
 
 int main(int ac, char **av)
