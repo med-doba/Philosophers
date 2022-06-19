@@ -17,10 +17,12 @@ TEM = node/ft_alloc_node.c node/ft_node_create.c \
 
 OBJ= $(SRC:%.c=%.o)
 
+MAKE = -fsanitize=address
+
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	@$(CC) -fsanitize=address $(CFLAGS) $(OBJ) -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
 
 $(LIBFT):
 	@make -C libft

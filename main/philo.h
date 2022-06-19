@@ -6,7 +6,7 @@
 /*   By: med-doba <med-doba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 14:31:01 by med-doba          #+#    #+#             */
-/*   Updated: 2022/06/18 18:05:45 by med-doba         ###   ########.fr       */
+/*   Updated: 2022/06/19 17:51:49 by med-doba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,24 @@ typedef struct node{
 
 }t_ps;
 
+typedef struct global{
+	pthread_t	*philo_id;
+	pthread_mutex_t	mutex_philo;
+}global;
+
 typedef struct philo{
+	pthread_mutex_t mutex_philo;
 	int	poste;
 	int	fork_right;
 	int	fork_left;
-
 }t_philo;
+
+typedef struct shared{
+	int	time_to_die;
+	int	time_to_eat;
+	int	time_to_sleep;
+	int	n_times_philo_eat;
+}shared;
 
 typedef struct p_var{
 	char	**ptr;

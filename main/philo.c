@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: med-doba <med-doba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 14:30:24 by med-doba          #+#    #+#             */
-/*   Updated: 2022/06/18 22:58:02 by marvin           ###   ########.fr       */
+/*   Updated: 2022/06/19 19:07:51 by med-doba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,32 +37,45 @@ void	ft_arg()
 
 void	*ft_handler(void *arg)
 {
+	 global	*philo;
+	int		i;
 
-	printf("hamboula zamel bghani n7wih << %s\n", (char *)arg);
+	i = 0;
+	philo = (global *)arg;
+	pthread_mutex_lock(&philo->mutex_philo);
+	printf("%d %d has taken a fork\n", i++, (int)arg);
+	printf("%d %d is eating\n", i++, (int)arg);
+	printf("%d %d is sleeping\n", i++, (int)arg);
+	printf("%d %d is thinking\n", i++, (int)arg);
+	printf("%d %d died\n", i, (int)arg);
+	pthread_mutex_unlock(&philo->mutex_philo);
 	return (NULL);
 }
 
 void	ft_create_threads(int tab)
 {
-	int			i;
-	pthread_t	*philo_id;
+	global	*philo;
+	int		i;
 
 	i = 0;
-	philo_id = (pthread_t *)malloc(sizeof(pthread_t) * tab);
-	if (philo_id == NULL)
+	philo = (global *)malloc(sizeof(global) * 1);
+	philo->philo_id = (pthread_t *)malloc(sizeof(pthread_t) * tab);
+	pthread_mutex_init(&philo->mutex_philo, NULL);
+	if (philo->philo_id == NULL)
 		exit(1);
 	while (i < tab)
 	{
-		pthread_create(philo_id + i, NULL, &ft_handler, NULL);
+
+		pthread_create(philo->philo_id + i, NULL, &ft_handler, philo);
 		i++;
 	}
 	i = 0;
 	while (i < tab)
 	{
-		pthread_join(philo_id[i], NULL);
+		pthread_join(philo->philo_id[i], NULL);
 		i++;
 	}
-	free(philo_id);
+	free(philo->philo_id);
 }
 
 int main(int ac, char **av)
