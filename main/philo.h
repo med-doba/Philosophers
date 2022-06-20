@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 14:31:01 by med-doba          #+#    #+#             */
-/*   Updated: 2022/06/20 13:02:43 by marvin           ###   ########.fr       */
+/*   Updated: 2022/06/20 17:40:52 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,15 @@
 typedef struct s_shared{
 	int	*tab;
 	long	start_counter;
+	pthread_mutex_t	*forks;
 }	t_shared;
 
 typedef struct s_global{
+	int				ac;
+	int				n_time_eat;
 	int				index_philo;
-	pthread_mutex_t	fork_right;
-	pthread_mutex_t	fork_left;
+	pthread_mutex_t	*fork_right;
+	pthread_mutex_t	*fork_left;
 	long			last_meal;
 	t_shared		*shared;
 }	t_global;

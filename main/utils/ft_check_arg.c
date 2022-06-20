@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_check_arg.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: med-doba <med-doba@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 15:10:36 by med-doba          #+#    #+#             */
-/*   Updated: 2022/06/18 18:05:07 by med-doba         ###   ########.fr       */
+/*   Updated: 2022/06/20 16:32:05 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ int	*ft_check_arg(char **av, int ac, t_var *my)
 
 	my->i = 0;
 	my->j = 1;
-	tab = (int *)malloc(sizeof(int) * (ac - 1));
+	tab = (int *)malloc(sizeof(int) * ac);
 	if (tab == NULL)
 		ft_end(av, my);
-	while (--ac)
+	while (--ac -1)
 	{
 		ft_handle_arg(av[my->j], my);
 		tab[my->i++] = ft_atoi(av[my->j++]);
