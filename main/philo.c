@@ -3,32 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: med-doba <med-doba@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 14:30:24 by med-doba          #+#    #+#             */
-/*   Updated: 2022/06/19 19:07:51 by med-doba         ###   ########.fr       */
+/*   Updated: 2022/06/20 13:04:16 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-
-// void *myThreadFun(void *vargp)
-// {
-// 	sleep(1);
-// 	printf("Printing GeeksQuiz from Thread \n");
-// 	return NULL;
-// }
-
-// void	ft_ft()
-// {
-// 	pthread_t thread_id;
-// 	printf("Before Thread\n");
-//     pthread_create(&thread_id, NULL, myThreadFun, NULL);
-//     pthread_join(thread_id, NULL);
-//         printf("After Thread\n");
-//     exit(0);
-// }
 void	ft_arg()
 {
 	printf("not enough arguments\n");
@@ -37,50 +20,45 @@ void	ft_arg()
 
 void	*ft_handler(void *arg)
 {
-	 global	*philo;
-	int		i;
+	t_global	*philo;
 
-	i = 0;
-	philo = (global *)arg;
-	pthread_mutex_lock(&philo->mutex_philo);
-	printf("%d %d has taken a fork\n", i++, (int)arg);
-	printf("%d %d is eating\n", i++, (int)arg);
-	printf("%d %d is sleeping\n", i++, (int)arg);
-	printf("%d %d is thinking\n", i++, (int)arg);
-	printf("%d %d died\n", i, (int)arg);
-	pthread_mutex_unlock(&philo->mutex_philo);
+	philo = (t_global *)arg;
+	printf("%ld %d has taken a fork\n", (ft_time() - philo->shared->start_counter), philo->index_philo);
+	printf("%ld %d is eating\n", (ft_time() - philo->shared->start_counter), philo->index_philo);
+	printf("%ld %d is sleeping\n", (ft_time() - philo->shared->start_counter), philo->index_philo);
+	printf("%ld %d is thinking\n", (ft_time() - philo->shared->start_counter), philo->index_philo);
+	printf("%ld %d died\n", (ft_time() - philo->shared->start_counter), philo->index_philo);
 	return (NULL);
 }
 
-void	ft_create_threads(int tab)
+void	ft_create_threads(t_global	*philo)
 {
-	global	*philo;
+	pthread_t	*philo_id;
 	int		i;
 
 	i = 0;
-	philo = (global *)malloc(sizeof(global) * 1);
-	philo->philo_id = (pthread_t *)malloc(sizeof(pthread_t) * tab);
-	pthread_mutex_init(&philo->mutex_philo, NULL);
-	if (philo->philo_id == NULL)
+	philo_id = (pthread_t *)malloc(sizeof(pthread_t) * philo->shared->tab[0]);
+	if (philo_id == NULL)
 		exit(1);
-	while (i < tab)
+	while (i < philo->shared->tab[0])
 	{
-
-		pthread_create(philo->philo_id + i, NULL, &ft_handler, philo);
+		pthread_create(&philo_id[i], NULL, &ft_handler, &philo[i]);
 		i++;
 	}
 	i = 0;
-	while (i < tab)
+	while (i < philo->shared->tab[0])
 	{
-		pthread_join(philo->philo_id[i], NULL);
+		pthread_join(philo_id[i], NULL);
 		i++;
 	}
-	free(philo->philo_id);
+	free(philo_id);
 }
 
 int main(int ac, char **av)
 {
 	t_var	*my;
+	t_global	*philo;
+	t_shared	*shared;
 
 	if (ac < 5 || ac > 6)
 		ft_arg();
@@ -88,6 +66,19 @@ int main(int ac, char **av)
 	if (my == NULL)
 		exit(1);
 	my->tab = ft_check_arg(av, ac, my);
-	ft_create_threads(my->tab[0]);
+	my->h = 0;
+	shared = (t_shared *)malloc(sizeof(t_shared));
+	philo = (t_global *)malloc(sizeof(t_global) * my->tab[0]);
+	shared->start_counter = ft_time();
+	shared->tab = my->tab;
+	while (my->h < shared->tab[0])
+	{
+		philo[my->h].shared = shared;
+		philo[my->h].last_meal = shared->start_counter;
+		philo[my->h].index_philo = my->h + 1;
+		my->h++;
+	}
+	ft_create_threads(philo);
 	return(0);
 }
+
