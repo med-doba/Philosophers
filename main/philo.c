@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 14:30:24 by med-doba          #+#    #+#             */
-/*   Updated: 2022/06/20 17:50:16 by marvin           ###   ########.fr       */
+/*   Updated: 2022/06/20 19:12:21 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,21 +23,21 @@ void	*ft_handler(void *arg)
 	t_global	*philo;
 
 	philo = (t_global *)arg;
-	printf("%d\n", philo->index_philo);
 	if ((philo->index_philo % 2) == 0)
 		usleep(100);
-	exit(1);
 	while (philo->n_time_eat--)
 	{
 		pthread_mutex_lock(philo->fork_right);
 		printf("%ld %d has taken a fork\n", (ft_time() - philo->shared->start_counter), philo->index_philo);
 		pthread_mutex_lock(philo->fork_left);
 		printf("%ld %d has taken a fork\n", (ft_time() - philo->shared->start_counter), philo->index_philo);
-
+		philo->last_meal = ft_time();
 		printf("%ld %d is eating\n", (ft_time() - philo->shared->start_counter), philo->index_philo);
+		usleep(philo->shared->eat * 1000);
 		pthread_mutex_unlock(philo->fork_right);
 		pthread_mutex_unlock(philo->fork_left);
 		printf("%ld %d is sleeping\n", (ft_time() - philo->shared->start_counter), philo->index_philo);
+		usleep(philo->shared->sleep * 1000);
 		printf("%ld %d is thinking\n", (ft_time() - philo->shared->start_counter), philo->index_philo);
 	}
 	return (NULL);
@@ -52,7 +52,6 @@ void	ft_create_threads(t_global	*philo)
 	philo_id = (pthread_t *)malloc(sizeof(pthread_t) * philo->shared->tab[0]);
 	if (philo_id == NULL)
 		exit(1);
-	printf("hello%d\n", philo->shared->tab[0]);
 	while (i < philo->shared->tab[0])
 	{
 		pthread_create(&philo_id[i], NULL, &ft_handler, &philo[i]);
@@ -79,11 +78,14 @@ int main(int ac, char **av)
 	if (my == NULL)
 		return(1);
 	my->tab = ft_check_arg(av, ac, my);
-	printf("me %d\n", my->tab[0]);
 	my->h = 0;
 	shared = (t_shared *)malloc(sizeof(t_shared));
 	shared->start_counter = ft_time();
 	shared->tab = my->tab;
+	shared->die = my->tab[1];
+	shared->eat = my->tab[2];
+	shared->sleep = my->tab[3];
+
 	shared->forks = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * my->tab[0]);
 	philo = (t_global *)malloc(sizeof(t_global) * my->tab[0]);
 	philo->ac = ac;

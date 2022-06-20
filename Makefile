@@ -17,7 +17,7 @@ MAKE = -fsanitize=address
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	@$(CC) -pthread $(CFLAGS) $(OBJ) -o $(NAME)
+	@$(CC) -pthread -fsanitize=address $(CFLAGS) $(OBJ) -o $(NAME)
 
 clean:
 	@rm -rf $(OBJ)

@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 15:10:36 by med-doba          #+#    #+#             */
-/*   Updated: 2022/06/20 16:32:05 by marvin           ###   ########.fr       */
+/*   Updated: 2022/06/20 18:41:53 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	*ft_check_arg(char **av, int ac, t_var *my)
 	tab = (int *)malloc(sizeof(int) * ac);
 	if (tab == NULL)
 		ft_end(av, my);
-	while (--ac -1)
+	while (--ac)
 	{
 		ft_handle_arg(av[my->j], my);
 		tab[my->i++] = ft_atoi(av[my->j++]);
