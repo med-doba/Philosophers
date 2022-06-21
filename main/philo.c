@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: med-doba <med-doba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 14:30:24 by med-doba          #+#    #+#             */
-/*   Updated: 2022/06/21 10:02:26 by marvin           ###   ########.fr       */
+/*   Updated: 2022/06/21 13:18:13 by med-doba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,14 @@ int	ft_is_die(long	time, t_global *philo)
 	long	x;
 
 	x = ft_time();
-	while (time >= (ft_time() - x))
+	while (time > (ft_time() - x))
 	{
 		if ((ft_time() - philo->last_meal) > philo->shared->die)
 		{
 			printf("%ld %d died\n", (ft_time() - philo->shared->start_counter), philo->index_philo);
 			return (1);
 		}
-		usleep(50);
+		usleep(100);
 	}
 	return (0);
 }
