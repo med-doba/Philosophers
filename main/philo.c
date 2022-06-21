@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 14:30:24 by med-doba          #+#    #+#             */
-/*   Updated: 2022/06/20 19:12:21 by marvin           ###   ########.fr       */
+/*   Updated: 2022/06/21 10:02:26 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,23 @@ void	ft_arg()
 {
 	printf("not enough arguments\n");
 	exit(1);
+}
+
+int	ft_is_die(long	time, t_global *philo)
+{
+	long	x;
+
+	x = ft_time();
+	while (time >= (ft_time() - x))
+	{
+		if ((ft_time() - philo->last_meal) > philo->shared->die)
+		{
+			printf("%ld %d died\n", (ft_time() - philo->shared->start_counter), philo->index_philo);
+			return (1);
+		}
+		usleep(50);
+	}
+	return (0);
 }
 
 void	*ft_handler(void *arg)
@@ -33,11 +50,13 @@ void	*ft_handler(void *arg)
 		printf("%ld %d has taken a fork\n", (ft_time() - philo->shared->start_counter), philo->index_philo);
 		philo->last_meal = ft_time();
 		printf("%ld %d is eating\n", (ft_time() - philo->shared->start_counter), philo->index_philo);
-		usleep(philo->shared->eat * 1000);
+		if (ft_is_die(philo->shared->eat, philo) == 1)
+			break;
 		pthread_mutex_unlock(philo->fork_right);
 		pthread_mutex_unlock(philo->fork_left);
 		printf("%ld %d is sleeping\n", (ft_time() - philo->shared->start_counter), philo->index_philo);
-		usleep(philo->shared->sleep * 1000);
+		if (ft_is_die(philo->shared->sleep, philo) == 1)
+			break;
 		printf("%ld %d is thinking\n", (ft_time() - philo->shared->start_counter), philo->index_philo);
 	}
 	return (NULL);
