@@ -3,28 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: med-doba <med-doba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 14:31:01 by med-doba          #+#    #+#             */
-/*   Updated: 2022/06/20 19:03:45 by marvin           ###   ########.fr       */
+/*   Updated: 2022/06/23 19:01:24 by med-doba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_H
-#define PHILO_H
+# define PHILO_H
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <pthread.h>
-#include <sys/time.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <pthread.h>
+# include <sys/time.h>
 
 typedef struct s_shared{
-	int		*tab;
-	long	eat;
-	long	sleep;
-	long	die;
-	long	start_counter;
+	int				*tab;
+	long			eat;
+	long			sleep;
+	long			die;
+	long			start_counter;
 	pthread_mutex_t	*forks;
 }	t_shared;
 
@@ -37,7 +37,6 @@ typedef struct s_global{
 	long			last_meal;
 	t_shared		*shared;
 }	t_global;
-
 
 typedef struct p_var{
 	char	**ptr;
@@ -65,5 +64,13 @@ void	ft_min_max(t_var *my);
 int		*ft_check_arg(char **av, int ac, t_var *my);
 void	ft_handle_arg(char *stack, t_var *my);
 void	ft_end(char **str, t_var *my);
-long	ft_time();
+long	ft_time(void);
+
+//++
+void	ft_init_shared(t_shared *shared, t_var *my);
+void	ft_free_all(t_global *philo, t_shared *shared, t_var *my);
+void	ft_init_philo(t_var *my, t_shared *shared, t_global *philo, int ac);
+void	ft_while_handler(t_global	*philo);
+int		ft_is_die(long time, t_global *philo);
+
 #endif

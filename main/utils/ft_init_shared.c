@@ -1,21 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_end.c                                           :+:      :+:    :+:   */
+/*   ft_init_shared.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: med-doba <med-doba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/18 15:45:32 by med-doba          #+#    #+#             */
-/*   Updated: 2022/06/23 17:57:20 by med-doba         ###   ########.fr       */
+/*   Created: 2022/06/23 18:36:39 by med-doba          #+#    #+#             */
+/*   Updated: 2022/06/23 18:41:42 by med-doba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
 
-void	ft_end(char **str, t_var *my)
+void	ft_init_shared(t_shared *shared, t_var *my)
 {
-	ft_putendl_fd("Error", 2);
-	(void)str;
-	free(my);
-	exit(1);
+	shared->start_counter = ft_time();
+	shared->tab = my->tab;
+	shared->die = my->tab[1];
+	shared->eat = my->tab[2];
+	shared->sleep = my->tab[3];
+	shared->forks
+		= (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * my->tab[0]);
 }

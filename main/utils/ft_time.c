@@ -12,10 +12,11 @@
 
 #include "../philo.h"
 
-long	ft_time()
+long	ft_time(void)
 {
-	long	time;
-	struct timeval real_time;
+	long			time;
+	struct timeval	real_time;
+
 	gettimeofday(&real_time, NULL);
 	time = (real_time.tv_sec * 1000) + (real_time.tv_usec / 1000);
 	return (time);
