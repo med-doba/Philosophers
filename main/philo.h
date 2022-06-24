@@ -6,7 +6,7 @@
 /*   By: med-doba <med-doba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 14:31:01 by med-doba          #+#    #+#             */
-/*   Updated: 2022/06/23 19:01:24 by med-doba         ###   ########.fr       */
+/*   Updated: 2022/06/24 18:45:04 by med-doba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,58 +19,52 @@
 # include <pthread.h>
 # include <sys/time.h>
 
-typedef struct s_shared{
+typedef struct s_sh{
+	int				stop;
+	pthread_mutex_t	out;
 	int				*tab;
 	long			eat;
 	long			sleep;
 	long			die;
-	long			start_counter;
+	long			start;
 	pthread_mutex_t	*forks;
-}	t_shared;
+}	t_sh;
 
 typedef struct s_global{
-	int				ac;
 	int				n_time_eat;
-	int				index_philo;
+	int				id;
 	pthread_mutex_t	*fork_right;
 	pthread_mutex_t	*fork_left;
 	long			last_meal;
-	t_shared		*shared;
+	t_sh			*sh;
 }	t_global;
 
 typedef struct p_var{
-	char	**ptr;
-	long	*nbr;
 	int		*tab;
 	int		i;
 	int		j;
-	int		x;
-	long	y;
-	int		n;
 	int		h;
-	int		k;
-	int		l;
 }t_var;
 
 //utils
-long	ft_atoi(char *str);
-int		ft_isdigit(int c);
-void	*ft_memset(void *b, int c, size_t len);
-void	ft_putstr_fd(char *s, int fd);
-void	ft_putendl_fd(char *s, int fd);
-void	*ft_memcpy(void *dst, const void *src, size_t n);
-char	**ft_split(char const *s, char c);
-void	ft_min_max(t_var *my);
-int		*ft_check_arg(char **av, int ac, t_var *my);
-void	ft_handle_arg(char *stack, t_var *my);
-void	ft_end(char **str, t_var *my);
-long	ft_time(void);
-
-//++
-void	ft_init_shared(t_shared *shared, t_var *my);
-void	ft_free_all(t_global *philo, t_shared *shared, t_var *my);
-void	ft_init_philo(t_var *my, t_shared *shared, t_global *philo, int ac);
-void	ft_while_handler(t_global	*philo);
-int		ft_is_die(long time, t_global *philo);
+long		ft_atoi(char *str);
+int			ft_isdigit(int c);
+void		*ft_memset(void *b, int c, size_t len);
+void		ft_putstr_fd(char *s, int fd);
+void		ft_putendl_fd(char *s, int fd);
+void		*ft_memcpy(void *dst, const void *src, size_t n);
+char		**ft_split(char const *s, char c);
+void		ft_min_max(t_var *my);
+int			*ft_check_arg(char **av, int ac, t_var *my);
+void		ft_handle_arg(char *stack, t_var *my);
+void		ft_end(char **str, t_var *my);
+long		ft_time(void);
+void		ft_free_all(t_global *ph, t_sh *sh, t_var *my);
+void		ft_while_handler(t_global	*ph);
+int			ft_is_die(long time, t_global *ph);
+t_sh		*ft_init_sh(t_sh *sh, t_var *my);
+void		ft_unlock_fork(t_global *ph);
+t_global	*ft_init_ph(t_var *my, t_sh *sh,
+				t_global *ph, int ac);
 
 #endif

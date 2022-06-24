@@ -1,31 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_init_philo.c                                    :+:      :+:    :+:   */
+/*   ft_init_ph.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: med-doba <med-doba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 18:48:30 by med-doba          #+#    #+#             */
-/*   Updated: 2022/06/23 18:53:10 by med-doba         ###   ########.fr       */
+/*   Updated: 2022/06/24 18:26:42 by med-doba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
 
-void	ft_init_philo(t_var *my, t_shared *shared, t_global *philo, int ac)
+t_global	*ft_init_ph(t_var *my, t_sh *sh, t_global *ph, int ac)
 {
-	while (my->h < shared->tab[0])
+	my->h = 0;
+	while (my->h < sh->tab[0])
 	{
-		philo[my->h].shared = shared;
-		philo[my->h].last_meal = shared->start_counter;
-		philo[my->h].fork_right = &(shared->forks[my->h]);
-		philo[my->h].fork_left
-			= &(shared->forks[my->h + (shared->tab[0] - 1) % shared->tab[0]]);
-		philo[my->h].index_philo = my->h + 1;
+		ph[my->h].sh = sh;
+		ph[my->h].last_meal = sh->start;
+		ph[my->h].fork_right = &(sh->forks[my->h]);
+		ph[my->h].fork_left
+			= &(sh->forks[(my->h + sh->tab[0] - 1) % sh->tab[0]]);
+		ph[my->h].id = my->h + 1;
 		if (ac == 6)
-			philo[my->h].n_time_eat = shared->tab[4];
+			ph[my->h].n_time_eat = sh->tab[4];
 		else
-			philo[my->h].n_time_eat = -1;
+			ph[my->h].n_time_eat = -1;
 		my->h++;
 	}
+	return (ph);
 }
