@@ -6,17 +6,17 @@
 /*   By: med-doba <med-doba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 18:30:24 by med-doba          #+#    #+#             */
-/*   Updated: 2022/06/23 18:42:50 by med-doba         ###   ########.fr       */
+/*   Updated: 2022/06/24 18:27:48 by med-doba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
 
-void	ft_free_all(t_global	*philo, t_shared *shared, t_var *my)
+void	ft_free_all(t_global	*ph, t_sh *sh, t_var *my)
 {
 	free(my->tab);
 	free(my);
-	free(philo);
-	free(shared->forks);
-	free(shared);
+	free(ph);
+	free(sh->forks);
+	free(sh);
 }
