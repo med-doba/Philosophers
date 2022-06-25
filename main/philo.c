@@ -31,6 +31,7 @@ void	*ft_handler(void *arg)
 				break ;
 			}
 		}
+
 	}
 	else
 	{
