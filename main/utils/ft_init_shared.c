@@ -23,6 +23,8 @@ t_sh	*ft_init_sh(t_sh *sh, t_var *my)
 	pthread_mutex_init(&sh->out, NULL);
 	sh->forks
 		= (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * my->tab[0]);
+	if (sh->forks == NULL)
+		return (NULL);
 	my->h = 0;
 	while (my->h < sh->tab[0])
 	{

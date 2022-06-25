@@ -6,25 +6,28 @@
 /*   By: med-doba <med-doba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 14:38:44 by med-doba          #+#    #+#             */
-/*   Updated: 2022/06/24 18:27:48 by med-doba         ###   ########.fr       */
+/*   Updated: 2022/06/25 16:02:57 by med-doba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
 
-void	ft_handle_arg(char *stack, t_var *my)
+int	ft_handle_arg(char *stack)
 {
 	int	i;
 
 	i = 0;
 	if (stack[i] == '\0' || stack[i] == '-')
-		ft_end(&stack, my);
+		return (1);
 	if (stack[i] == '+' && stack[i] != '\0')
 		i++;
 	while (stack[i] != '\0')
 	{
 		if (ft_isdigit(stack[i]) == 1)
-			ft_end(&stack, my);
+		{
+			return (1);
+		}
 		i++;
 	}
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: med-doba <med-doba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 14:31:01 by med-doba          #+#    #+#             */
-/*   Updated: 2022/06/24 18:45:04 by med-doba         ###   ########.fr       */
+/*   Updated: 2022/06/25 16:03:12 by med-doba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void		*ft_memcpy(void *dst, const void *src, size_t n);
 char		**ft_split(char const *s, char c);
 void		ft_min_max(t_var *my);
 int			*ft_check_arg(char **av, int ac, t_var *my);
-void		ft_handle_arg(char *stack, t_var *my);
+int			ft_handle_arg(char *stack);
 void		ft_end(char **str, t_var *my);
 long		ft_time(void);
 void		ft_free_all(t_global *ph, t_sh *sh, t_var *my);

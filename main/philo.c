@@ -12,12 +12,6 @@
 
 #include "philo.h"
 
-void	ft_arg(void)
-{
-	printf("not enough arguments\n");
-	exit(1);
-}
-
 void	*ft_handler(void *arg)
 {
 	t_global	*ph;
@@ -27,18 +21,16 @@ void	*ft_handler(void *arg)
 	{
 		pthread_mutex_lock(ph->fork_right);
 		printf("%ld %d has taken a fork\n", (ft_time() - ph->sh->start), ph->id);
-		// while (1)
-		// {
-		// 	if ((ft_time() - ph->last_meal) > ph->sh->die)
-		// 	{
-		// 		printf("%ld %d died\n",
-		// 			(ft_time() - ph->sh->start), ph->id);
-		// 		ph->sh->stop = 1;
-		// 		break ;
-		// 	}
-		// }
-		usleep(ph->sh->die * 1000);
-		printf("%ld %d died\n", (ft_time() - ph->sh->start), ph->id);
+		while (1)
+		{
+			if ((ft_time() - ph->last_meal) > ph->sh->die)
+			{
+				printf("%ld %d died\n",
+					(ft_time() - ph->sh->start), ph->id);
+				ph->sh->stop = 1;
+				break ;
+			}
+		}
 		return (NULL);
 	}
 	else
@@ -58,7 +50,7 @@ void	ft_create_threads(t_global	*ph)
 	i = 0;
 	ph_id = (pthread_t *)malloc(sizeof(pthread_t) * ph->sh->tab[0]);
 	if (ph_id == NULL)
-		exit(1);
+		return ;
 	while (i < ph->sh->tab[0])
 	{
 		pthread_create(&ph_id[i], NULL, &ft_handler, &ph[i]);
@@ -80,15 +72,46 @@ int	main(int ac, char **av)
 	t_sh		*sh;
 
 	if (ac < 5 || ac > 6)
-		ft_arg();
+	{
+		ft_putendl_fd("Error", 2);
+		return (1);
+	}
 	my = (t_var *)malloc(sizeof(t_var) * 1);
 	if (my == NULL)
 		return (1);
 	my->tab = ft_check_arg(av, ac, my);
+	if (my->tab == NULL)
+	{
+		ft_putendl_fd("Error", 2);
+		free(my);
+		return (1);
+	}
 	my->h = 0;
 	sh = (t_sh *)malloc(sizeof(t_sh));
+	if (sh == NULL)
+	{
+		ft_putendl_fd("Error", 2);
+		free(my->tab);
+		free(my);
+		return (1);
+	}
 	sh = ft_init_sh(sh, my);
+	if (sh == NULL)
+	{
+		ft_putendl_fd("Error", 2);
+		free(my->tab);
+		free(my);
+		free(sh);
+		return (1);
+	}
 	ph = (t_global *)malloc(sizeof(t_global) * my->tab[0]);
+	if (ph == NULL)
+	{
+		ft_putendl_fd("Error", 2);
+		free(my->tab);
+		free(my);
+		free(sh);
+	}
 	ph = ft_init_ph(my, sh, ph, ac);
 	ft_create_threads(ph);
 	ft_free_all(ph, sh, my);
