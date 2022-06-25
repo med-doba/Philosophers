@@ -24,7 +24,23 @@ void	*ft_handler(void *arg)
 
 	ph = (t_global *)arg;
 	if (ph->sh->tab[0] == 1)
+	{
+		pthread_mutex_lock(ph->fork_right);
+		printf("%ld %d has taken a fork\n", (ft_time() - ph->sh->start), ph->id);
+		// while (1)
+		// {
+		// 	if ((ft_time() - ph->last_meal) > ph->sh->die)
+		// 	{
+		// 		printf("%ld %d died\n",
+		// 			(ft_time() - ph->sh->start), ph->id);
+		// 		ph->sh->stop = 1;
+		// 		break ;
+		// 	}
+		// }
+		usleep(ph->sh->die * 1000);
 		printf("%ld %d died\n", (ft_time() - ph->sh->start), ph->id);
+		return (NULL);
+	}
 	else
 	{
 		if ((ph->id % 2) == 0)
