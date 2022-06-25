@@ -31,7 +31,6 @@ void	*ft_handler(void *arg)
 				break ;
 			}
 		}
-		return (NULL);
 	}
 	else
 	{
@@ -53,13 +52,15 @@ void	ft_create_threads(t_global	*ph)
 		return ;
 	while (i < ph->sh->tab[0])
 	{
-		pthread_create(&ph_id[i], NULL, &ft_handler, &ph[i]);
+		if (pthread_create(&ph_id[i], NULL, &ft_handler, &ph[i]) != 0)
+			break ;
 		i++;
 	}
 	i = 0;
 	while (i < ph->sh->tab[0])
 	{
-		pthread_join(ph_id[i], NULL);
+		if (pthread_join(ph_id[i], NULL) != 0)
+			break ;
 		i++;
 	}
 	free(ph_id);
@@ -72,48 +73,24 @@ int	main(int ac, char **av)
 	t_sh		*sh;
 
 	if (ac < 5 || ac > 6)
-	{
-		ft_putendl_fd("Error", 2);
-		return (1);
-	}
+		return (ft_putendl_fd("Error", 2), 1);
 	my = (t_var *)malloc(sizeof(t_var) * 1);
 	if (my == NULL)
 		return (1);
 	my->tab = ft_check_arg(av, ac, my);
 	if (my->tab == NULL)
-	{
-		ft_putendl_fd("Error", 2);
-		free(my);
-		return (1);
-	}
+		return (ft_putendl_fd("Error", 2), free(my), 1);
 	my->h = 0;
 	sh = (t_sh *)malloc(sizeof(t_sh));
 	if (sh == NULL)
-	{
-		ft_putendl_fd("Error", 2);
-		free(my->tab);
-		free(my);
-		return (1);
-	}
+		return (ft_free_all(NULL, NULL, my, -1), 1);
 	sh = ft_init_sh(sh, my);
 	if (sh == NULL)
-	{
-		ft_putendl_fd("Error", 2);
-		free(my->tab);
-		free(my);
-		free(sh);
-		return (1);
-	}
+		return (ft_free_all(NULL, sh, my, 1), 1);
 	ph = (t_global *)malloc(sizeof(t_global) * my->tab[0]);
 	if (ph == NULL)
-	{
-		ft_putendl_fd("Error", 2);
-		free(my->tab);
-		free(my);
-		free(sh);
-	}
+		return (ft_free_all(NULL, sh, my, 1), 1);
 	ph = ft_init_ph(my, sh, ph, ac);
 	ft_create_threads(ph);
-	ft_free_all(ph, sh, my);
-	return (0);
+	return (ft_free_all(ph, sh, my, 0), 0);
 }
