@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../philo.h"
+#include "../main/philo.h"
 
 t_global	*ft_init_ph(t_var *my, t_sh *sh, t_global *ph, int ac)
 {

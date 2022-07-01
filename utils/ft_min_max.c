@@ -1,21 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isdigit.c                                       :+:      :+:    :+:   */
+/*   ft_min_max.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: med-doba <med-doba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/18 15:52:01 by med-doba          #+#    #+#             */
-/*   Updated: 2022/06/24 18:27:48 by med-doba         ###   ########.fr       */
+/*   Created: 2022/06/18 15:51:18 by med-doba          #+#    #+#             */
+/*   Updated: 2022/06/26 14:55:01 by med-doba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../philo.h"
+#include "../main/philo.h"
 
-int	ft_isdigit(int c)
-{
-	if (c >= '0' && c <= '9')
-		return (0);
-	else
-		return (1);
-}
+// void	ft_min_max(t_var *my)
+// {
+// 	int	i;
+
+// 	i = 0;
+// 	while (i < my->n)
+// 	{
+// 		if (my->tab_a[i] > 2147483647 || my->tab_a[i] < -2147483648)
+// 		{
+// 			ft_putendl_fd("Error", 2);
+// 			free(my->tab_a);
+// 			free(my);
+// 			exit(1);
+// 		}
+// 		i++;
+// 	}
+// }

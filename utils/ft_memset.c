@@ -1,34 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcpy.c                                        :+:      :+:    :+:   */
+/*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: med-doba <med-doba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/18 16:34:41 by med-doba          #+#    #+#             */
-/*   Updated: 2022/06/24 18:27:48 by med-doba         ###   ########.fr       */
+/*   Created: 2022/06/18 15:51:54 by med-doba          #+#    #+#             */
+/*   Updated: 2022/06/26 14:54:56 by med-doba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../philo.h"
+#include "../main/philo.h"
 
-void	*ft_memcpy(void *dst, const void *src, size_t n)
+void	*ft_memset(void *b, int c, size_t len)
 {
-	unsigned char	*s;
-	char			*d;
-	size_t			i;
+	size_t	i;
 
-	s = (unsigned char *)src;
-	d = (char *)dst;
 	i = 0;
-	if (!d && !s)
-		return (NULL);
-	if (n == 0)
-		return (dst);
-	while (i < n)
+	while (i < len)
 	{
-		d[i] = s[i];
+		*((unsigned char *)b + i) = (unsigned char)c;
 		i++;
 	}
-	return (dst);
+	return (b);
 }

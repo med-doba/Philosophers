@@ -6,11 +6,11 @@
 /*   By: med-doba <med-doba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 18:30:24 by med-doba          #+#    #+#             */
-/*   Updated: 2022/06/25 21:07:42 by med-doba         ###   ########.fr       */
+/*   Updated: 2022/06/26 14:54:27 by med-doba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../philo.h"
+#include "../main/philo.h"
 
 void	ft_free_all(t_global *ph, t_sh *sh, t_var *my, int nbr)
 {

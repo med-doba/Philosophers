@@ -25,8 +25,8 @@ void	*ft_handler(void *arg)
 		{
 			if ((ft_time() - ph->last_meal) > ph->sh->die)
 			{
-				printf("%ld %d died\n",
-					(ft_time() - ph->sh->start), ph->id);
+				ph->sh->index = ph->id;
+				ph->sh->time = ft_time() - ph->sh->start;
 				ph->sh->stop = 1;
 				break ;
 			}
@@ -63,6 +63,11 @@ void	ft_create_threads(t_global	*ph)
 		if (pthread_join(ph_id[i], NULL) != 0)
 			break ;
 		i++;
+	}
+	if (ph->sh->stop == 1)
+	{
+		printf("%ld %d died\n",
+		ph->sh->time, ph->sh->index);
 	}
 	free(ph_id);
 }

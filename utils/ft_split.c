@@ -6,11 +6,11 @@
 /*   By: med-doba <med-doba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 15:51:39 by med-doba          #+#    #+#             */
-/*   Updated: 2022/06/24 18:27:48 by med-doba         ###   ########.fr       */
+/*   Updated: 2022/06/26 14:55:14 by med-doba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../philo.h"
+#include "../main/philo.h"
 
 int	repetition(char *str, char c)
 {

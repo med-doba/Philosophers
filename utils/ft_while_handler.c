@@ -6,23 +6,19 @@
 /*   By: med-doba <med-doba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 18:57:15 by med-doba          #+#    #+#             */
-/*   Updated: 2022/06/24 18:50:12 by med-doba         ###   ########.fr       */
+/*   Updated: 2022/07/01 15:09:29 by med-doba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../philo.h"
+#include "../main/philo.h"
 
 void	ft_while_handler(t_global	*ph)
 {
 	while (ph->n_time_eat--)
 	{
 		pthread_mutex_lock(ph->fork_right);
-		if (ph->sh->stop == 1)
-			break ;
 		printf("%ld %d has taken a fork\n", (ft_time() - ph->sh->start), ph->id);
 		pthread_mutex_lock(ph->fork_left);
-		if (ph->sh->stop == 1)
-			break ;
 		printf("%ld %d has taken a fork\n", (ft_time() - ph->sh->start), ph->id);
 		printf("%ld %d is eating\n", (ft_time() - ph->sh->start), ph->id);
 		if (ft_is_die(ph->sh->eat, ph) == 1)

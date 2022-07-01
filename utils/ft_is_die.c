@@ -6,11 +6,11 @@
 /*   By: med-doba <med-doba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 19:00:10 by med-doba          #+#    #+#             */
-/*   Updated: 2022/06/24 18:27:48 by med-doba         ###   ########.fr       */
+/*   Updated: 2022/07/01 15:06:34 by med-doba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../philo.h"
+#include "../main/philo.h"
 
 void	ft_unlock_fork(t_global *ph)
 {
@@ -29,8 +29,8 @@ int	ft_is_die(long time, t_global *ph)
 		if ((ft_time() - ph->last_meal) > ph->sh->die
 			&& ph->sh->stop == 0)
 		{
-			printf("%ld %d died\n",
-				(ft_time() - ph->sh->start), ph->id);
+			ph->sh->index = ph->id;
+			ph->sh->time = ft_time() - ph->sh->start;
 			ph->sh->stop = 1;
 			pthread_mutex_unlock(&ph->sh->out);
 			return (ft_unlock_fork(ph), 1);

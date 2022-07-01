@@ -6,7 +6,7 @@
 /*   By: med-doba <med-doba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 14:31:01 by med-doba          #+#    #+#             */
-/*   Updated: 2022/06/25 20:29:43 by med-doba         ###   ########.fr       */
+/*   Updated: 2022/07/01 15:01:12 by med-doba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 
 typedef struct s_sh{
 	int				stop;
+	int				index;
+	long			time;
 	pthread_mutex_t	out;
 	int				*tab;
 	long			eat;
