@@ -1,31 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_min_max.c                                       :+:      :+:    :+:   */
+/*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: med-doba <med-doba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/18 15:51:18 by med-doba          #+#    #+#             */
-/*   Updated: 2022/06/26 14:55:01 by med-doba         ###   ########.fr       */
+/*   Created: 2022/06/18 15:50:31 by med-doba          #+#    #+#             */
+/*   Updated: 2022/07/07 20:34:50 by med-doba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../main/philo.h"
+#include "../philo_bonus.h"
 
-// void	ft_min_max(t_var *my)
-// {
-// 	int	i;
+void	ft_putendl_fd(char *s, int fd)
+{
+	char	eof;
 
-// 	i = 0;
-// 	while (i < my->n)
-// 	{
-// 		if (my->tab_a[i] > 2147483647 || my->tab_a[i] < -2147483648)
-// 		{
-// 			ft_putendl_fd("Error", 2);
-// 			free(my->tab_a);
-// 			free(my);
-// 			exit(1);
-// 		}
-// 		i++;
-// 	}
-// }
+	eof = '\n';
+	ft_putstr_fd(s, fd);
+	write(fd, &eof, 1);
+}

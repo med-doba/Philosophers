@@ -1,33 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_handle_arg.c                                    :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: med-doba <med-doba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/18 14:38:44 by med-doba          #+#    #+#             */
-/*   Updated: 2022/07/07 20:36:33 by med-doba         ###   ########.fr       */
+/*   Created: 2022/06/18 15:52:15 by med-doba          #+#    #+#             */
+/*   Updated: 2022/07/07 20:35:01 by med-doba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../philo.h"
+#include "../philo_bonus.h"
 
-int	ft_handle_arg(char *stack)
+long	ft_atoi(char *str)
 {
-	int	i;
+	int		j;
+	long	nb;
+	long	f;
 
-	i = 0;
-	if (stack[i] == '\0' || stack[i] == '-')
-		return (1);
-	if (stack[i] == '+' && stack[i] != '\0')
-		i++;
-	while (stack[i] != '\0')
+	j = 0;
+	nb = 1;
+	f = 0;
+	while (str[j] == ' ' || str[j] == '\t' || str[j] == '\n'
+		|| str[j] == '\r' || str[j] == '\v' || str[j] == '\f')
+		j++;
+	if (str[j] == '-' || str[j] == '+')
 	{
-		if (ft_isdigit(stack[i]) == 1)
-		{
-			return (1);
-		}
-		i++;
+		if (str[j] == '-')
+			nb *= -1;
+		j++;
 	}
-	return (0);
+	while (str[j] >= '0' && str[j] <= '9')
+	{
+		f = (f * 10) + str[j] - 48;
+		j++;
+	}
+	return (f * nb);
 }

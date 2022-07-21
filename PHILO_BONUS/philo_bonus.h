@@ -1,42 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.h                                            :+:      :+:    :+:   */
+/*   ../philo_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: med-doba <med-doba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 14:31:01 by med-doba          #+#    #+#             */
-/*   Updated: 2022/07/01 15:01:12 by med-doba         ###   ########.fr       */
+/*   Updated: 2022/07/07 20:32:30 by med-doba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILO_H
-# define PHILO_H
+#ifndef PHILO_BONUS_H
+# define PHILO_BONUS_H
 
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
 # include <pthread.h>
+# include <semaphore.h>
 # include <sys/time.h>
 
 typedef struct s_sh{
 	int				stop;
 	int				index;
 	long			time;
-	pthread_mutex_t	out;
+	sem_t			*out;
+	pid_t			*ph_pid;
 	int				*tab;
 	long			eat;
 	long			sleep;
 	long			die;
 	long			start;
-	pthread_mutex_t	*forks;
+	sem_t			*forks;
 }	t_sh;
 
 typedef struct s_global{
 	int				n_time_eat;
 	int				id;
-	pthread_mutex_t	*fork_right;
-	pthread_mutex_t	*fork_left;
 	long			last_meal;
 	t_sh			*sh;
 }	t_global;
@@ -51,15 +51,10 @@ typedef struct p_var{
 //utils
 long		ft_atoi(char *str);
 int			ft_isdigit(int c);
-void		*ft_memset(void *b, int c, size_t len);
 void		ft_putstr_fd(char *s, int fd);
 void		ft_putendl_fd(char *s, int fd);
-void		*ft_memcpy(void *dst, const void *src, size_t n);
-char		**ft_split(char const *s, char c);
-void		ft_min_max(t_var *my);
 int			*ft_check_arg(char **av, int ac, t_var *my);
 int			ft_handle_arg(char *stack);
-void		ft_end(char **str, t_var *my);
 long		ft_time(void);
 void		ft_free_all(t_global *ph, t_sh *sh, t_var *my, int nbr);
 void		ft_while_handler(t_global	*ph);

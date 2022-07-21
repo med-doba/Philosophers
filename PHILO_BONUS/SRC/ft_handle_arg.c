@@ -6,11 +6,11 @@
 /*   By: med-doba <med-doba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 14:38:44 by med-doba          #+#    #+#             */
-/*   Updated: 2022/07/07 20:36:33 by med-doba         ###   ########.fr       */
+/*   Updated: 2022/07/07 20:34:50 by med-doba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../philo.h"
+#include "../philo_bonus.h"
 
 int	ft_handle_arg(char *stack)
 {

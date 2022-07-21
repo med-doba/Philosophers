@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../philo.h"
+#include "../philo_bonus.h"
 
 t_sh	*ft_init_sh(t_sh *sh, t_var *my)
 {
@@ -20,16 +20,10 @@ t_sh	*ft_init_sh(t_sh *sh, t_var *my)
 	sh->eat = my->tab[2];
 	sh->sleep = my->tab[3];
 	sh->stop = 0;
-	pthread_mutex_init(&sh->out, NULL);
-	sh->forks
-		= (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * my->tab[0]);
-	if (sh->forks == NULL)
-		return (NULL);
-	my->h = 0;
-	while (my->h < sh->tab[0])
-	{
-		pthread_mutex_init(&sh->forks[my->h], NULL);
-		my->h++;
-	}
+	sem_unlink("/out");
+	sem_unlink("/forks");
+	sh->out = sem_open("/out", O_CREAT, S_IRUSR | S_IWUSR, 1);
+	sh->forks = sem_open("/forks", O_CREAT, S_IRUSR | S_IWUSR, sh->tab[0]);
+	sh->ph_pid = (pid_t *)malloc(sizeof(pid_t) * sh->tab[0]);
 	return (sh);
 }

@@ -6,11 +6,11 @@
 /*   By: med-doba <med-doba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 16:29:39 by med-doba          #+#    #+#             */
-/*   Updated: 2022/06/26 14:55:11 by med-doba         ###   ########.fr       */
+/*   Updated: 2022/07/07 20:36:58 by med-doba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../main/philo.h"
+#include "../philo.h"
 
 void	ft_putstr_fd(char *s, int fd)
 {

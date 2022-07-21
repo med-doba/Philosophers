@@ -1,33 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_handle_arg.c                                    :+:      :+:    :+:   */
+/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: med-doba <med-doba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/18 14:38:44 by med-doba          #+#    #+#             */
-/*   Updated: 2022/07/07 20:36:33 by med-doba         ###   ########.fr       */
+/*   Created: 2022/06/18 16:29:39 by med-doba          #+#    #+#             */
+/*   Updated: 2022/07/07 20:34:50 by med-doba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../philo.h"
+#include "../philo_bonus.h"
 
-int	ft_handle_arg(char *stack)
+void	ft_putstr_fd(char *s, int fd)
 {
 	int	i;
 
 	i = 0;
-	if (stack[i] == '\0' || stack[i] == '-')
-		return (1);
-	if (stack[i] == '+' && stack[i] != '\0')
-		i++;
-	while (stack[i] != '\0')
+	if (!s)
+		return ;
+	while (s[i] != '\0')
 	{
-		if (ft_isdigit(stack[i]) == 1)
-		{
-			return (1);
-		}
+		write(fd, &s[i], 1);
 		i++;
 	}
-	return (0);
 }

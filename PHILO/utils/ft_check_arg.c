@@ -6,11 +6,11 @@
 /*   By: med-doba <med-doba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 15:10:36 by med-doba          #+#    #+#             */
-/*   Updated: 2022/06/26 14:54:18 by med-doba         ###   ########.fr       */
+/*   Updated: 2022/07/07 20:36:25 by med-doba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../main/philo.h"
+#include "../philo.h"
 
 int	*ft_check_arg(char **av, int ac, t_var *my)
 {

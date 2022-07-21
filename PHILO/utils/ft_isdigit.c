@@ -6,11 +6,11 @@
 /*   By: med-doba <med-doba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 15:52:01 by med-doba          #+#    #+#             */
-/*   Updated: 2022/06/26 14:54:48 by med-doba         ###   ########.fr       */
+/*   Updated: 2022/07/07 20:36:50 by med-doba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../main/philo.h"
+#include "../philo.h"
 
 int	ft_isdigit(int c)
 {

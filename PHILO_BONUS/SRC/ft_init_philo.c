@@ -1,34 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcpy.c                                        :+:      :+:    :+:   */
+/*   ft_init_ph.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: med-doba <med-doba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/18 16:34:41 by med-doba          #+#    #+#             */
-/*   Updated: 2022/06/26 14:54:52 by med-doba         ###   ########.fr       */
+/*   Created: 2022/06/23 18:48:30 by med-doba          #+#    #+#             */
+/*   Updated: 2022/06/24 18:26:42 by med-doba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../main/philo.h"
+#include "../philo_bonus.h"
 
-void	*ft_memcpy(void *dst, const void *src, size_t n)
+t_global	*ft_init_ph(t_var *my, t_sh *sh, t_global *ph, int ac)
 {
-	unsigned char	*s;
-	char			*d;
-	size_t			i;
-
-	s = (unsigned char *)src;
-	d = (char *)dst;
-	i = 0;
-	if (!d && !s)
-		return (NULL);
-	if (n == 0)
-		return (dst);
-	while (i < n)
+	my->h = 0;
+	while (my->h < sh->tab[0])
 	{
-		d[i] = s[i];
-		i++;
+		ph[my->h].sh = sh;
+		ph[my->h].last_meal = sh->start;
+		ph[my->h].id = my->h + 1;
+		if (ac == 6)
+			ph[my->h].n_time_eat = sh->tab[4];
+		else
+			ph[my->h].n_time_eat = -1;
+		my->h++;
 	}
-	return (dst);
+	return (ph);
 }

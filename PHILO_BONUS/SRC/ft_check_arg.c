@@ -1,33 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_handle_arg.c                                    :+:      :+:    :+:   */
+/*   ft_check_arg.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: med-doba <med-doba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/18 14:38:44 by med-doba          #+#    #+#             */
-/*   Updated: 2022/07/07 20:36:33 by med-doba         ###   ########.fr       */
+/*   Created: 2022/06/18 15:10:36 by med-doba          #+#    #+#             */
+/*   Updated: 2022/07/19 16:02:29 by med-doba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../philo.h"
+#include "../philo_bonus.h"
 
-int	ft_handle_arg(char *stack)
+int	*ft_check_arg(char **av, int ac, t_var *my)
 {
-	int	i;
+	int	*tab;
 
-	i = 0;
-	if (stack[i] == '\0' || stack[i] == '-')
-		return (1);
-	if (stack[i] == '+' && stack[i] != '\0')
-		i++;
-	while (stack[i] != '\0')
+	my->i = 0;
+	my->j = 1;
+	tab = (int *)malloc(sizeof(int) * ac);
+	if (tab == NULL)
 	{
-		if (ft_isdigit(stack[i]) == 1)
-		{
-			return (1);
-		}
-		i++;
+		ft_putendl_fd("Error", 2);
+		return (NULL);
 	}
-	return (0);
+	while (--ac)
+	{
+		if (ft_handle_arg(av[my->j]) == 1)
+		{
+			free(tab);
+			return (NULL);
+		}
+		tab[my->i++] = ft_atoi(av[my->j++]);
+	}
+	if (tab[0] == 0)
+		return (free(tab), NULL);
+	return (tab);
 }
