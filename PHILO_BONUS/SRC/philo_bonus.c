@@ -12,7 +12,7 @@
 
 #include "../philo_bonus.h"
 
-void	*ft_handler(t_global *ph)
+void	ft_handler(t_global *ph)
 {
 	if (ph->sh->tab[0] == 1)
 	{
@@ -22,10 +22,11 @@ void	*ft_handler(t_global *ph)
 		{
 			if ((ft_time() - ph->last_meal) > ph->sh->die)
 			{
+				ph->sh->stop = 1;
 				ph->sh->index = ph->id;
 				ph->sh->time = ft_time() - ph->sh->start;
-				ph->sh->stop = 1;
-				exit(1);
+				exit(2);
+				// return ;
 			}
 		}
 
@@ -36,12 +37,13 @@ void	*ft_handler(t_global *ph)
 			usleep(150);
 		ft_while_handler(ph);
 	}
-	return (NULL);
+	return ;
 }
 
 void	ft_create_process(t_global	*ph)
 {
 	int	i;
+	int	j;
 	int	status;
 
 	i = 0;
@@ -52,7 +54,7 @@ void	ft_create_process(t_global	*ph)
 	{
 		ph->sh->ph_pid[i] = fork();
 		if (ph->sh->ph_pid[i] == 0)
-			ft_handler(ph);
+			ft_handler(&ph[i]);
 		if (ph->sh->ph_pid[i] == -1)
 		{
 			printf("no child process is created");
@@ -64,18 +66,26 @@ void	ft_create_process(t_global	*ph)
 	while (i < ph->sh->tab[0])
 	{
 		waitpid(-1, &status, 0);
-		if (WIFEXITED(status) == true && WEXITSTATUS(status) == 2)
+		printf("kok\n");
+		if (WIFEXITED(status) == 0 && WEXITSTATUS(status) == 2)
 		{
-			kill(ph->sh->ph_pid, sig);
+			j = 0;
+			while (j < ph->sh->tab[0])
+			{
+				kill(ph->sh->ph_pid[j], SIGTERM);
+				j++;
+			}
 		}
 		i++;
 	}
+		printf("lol%d\n", ph->sh->stop);
 	if (ph->sh->stop == 1)
 	{
 		printf("%ld %d died\n",
 		ph->sh->time, ph->sh->index);
 	}
 	free(ph->sh->ph_pid);
+	// exit(0);
 }
 
 int	main(int ac, char **av)
