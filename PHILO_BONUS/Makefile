@@ -17,7 +17,7 @@ SRC_DIR = ./SRC
 
 INC= philo_bonus.h
 
-MAKE = -fsanitize=address
+SIG = -fsanitize=address
 
 all: $(NAME)
 

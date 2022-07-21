@@ -6,17 +6,11 @@
 /*   By: med-doba <med-doba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 19:00:10 by med-doba          #+#    #+#             */
-/*   Updated: 2022/07/20 19:33:26 by med-doba         ###   ########.fr       */
+/*   Updated: 2022/07/21 15:18:07 by med-doba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo_bonus.h"
-
-void	ft_unlock_fork(t_global *ph)
-{
-	sem_post(ph->sh->forks);
-	sem_post(ph->sh->forks);
-}
 
 int	ft_is_die(long time, t_global *ph)
 {
@@ -32,12 +26,11 @@ int	ft_is_die(long time, t_global *ph)
 			ph->sh->index = ph->id;
 			ph->sh->time = ft_time() - ph->sh->start;
 			ph->sh->stop = 1;
-			sem_post(ph->sh->out);
-			return (ft_unlock_fork(ph), 1);
+			printf("%ld %d died\n",
+				ph->sh->time, ph->sh->index);
+			return (exit(2), 1);
 		}
 		sem_post(ph->sh->out);
-		if (ph->sh->stop == 1)
-			return (ft_unlock_fork(ph), 1);
 		usleep(100);
 	}
 	return (0);

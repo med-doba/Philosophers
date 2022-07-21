@@ -31,7 +31,6 @@ void	*ft_handler(void *arg)
 				break ;
 			}
 		}
-
 	}
 	else
 	{
@@ -59,15 +58,12 @@ void	ft_create_threads(t_global	*ph)
 	}
 	i = 0;
 	while (i < ph->sh->tab[0])
-	{
-		if (pthread_join(ph_id[i], NULL) != 0)
+		if (pthread_join(ph_id[i++], NULL) != 0)
 			break ;
-		i++;
-	}
 	if (ph->sh->stop == 1)
 	{
 		printf("%ld %d died\n",
-		ph->sh->time, ph->sh->index);
+			ph->sh->time, ph->sh->index);
 	}
 	free(ph_id);
 }

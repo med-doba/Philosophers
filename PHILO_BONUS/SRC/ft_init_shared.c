@@ -25,5 +25,7 @@ t_sh	*ft_init_sh(t_sh *sh, t_var *my)
 	sh->out = sem_open("/out", O_CREAT, S_IRUSR | S_IWUSR, 1);
 	sh->forks = sem_open("/forks", O_CREAT, S_IRUSR | S_IWUSR, sh->tab[0]);
 	sh->ph_pid = (pid_t *)malloc(sizeof(pid_t) * sh->tab[0]);
+	if (sh->ph_pid == NULL)
+		return (NULL);
 	return (sh);
 }

@@ -25,11 +25,12 @@ void	ft_handler(t_global *ph)
 				ph->sh->stop = 1;
 				ph->sh->index = ph->id;
 				ph->sh->time = ft_time() - ph->sh->start;
+				if (ph->sh->stop == 1)
+					printf("%ld %d died\n",
+						ph->sh->time, ph->sh->index);
 				exit(2);
-				// return ;
 			}
 		}
-
 	}
 	else
 	{
@@ -37,55 +38,34 @@ void	ft_handler(t_global *ph)
 			usleep(150);
 		ft_while_handler(ph);
 	}
-	return ;
 }
 
-void	ft_create_process(t_global	*ph)
+void	ft_create_process(t_global	*ph, t_var *my)
 {
-	int	i;
-	int	j;
-	int	status;
-
-	i = 0;
-	ph->sh->ph_pid = (pid_t *)malloc(sizeof(pid_t) * ph->sh->tab[0]);
-	if (ph->sh->ph_pid == NULL)
-		return ;
-	while (i < ph->sh->tab[0])
+	my->i = 0;
+	while (my->i < ph->sh->tab[0])
 	{
-		ph->sh->ph_pid[i] = fork();
-		if (ph->sh->ph_pid[i] == 0)
-			ft_handler(&ph[i]);
-		if (ph->sh->ph_pid[i] == -1)
+		ph->sh->ph_pid[my->i] = fork();
+		if (ph->sh->ph_pid[my->i] == 0)
+			ft_handler(&ph[my->i]);
+		if (ph->sh->ph_pid[my->i] == -1)
 		{
 			printf("no child process is created");
 			exit(1);
 		}
-		i++;
+		my->i++;
 	}
-	i = 0;
-	while (i < ph->sh->tab[0])
+	my->i = 0;
+	while (my->i < ph->sh->tab[0])
 	{
-		waitpid(-1, &status, 0);
-		printf("kok\n");
-		if (WIFEXITED(status) == 0 && WEXITSTATUS(status) == 2)
-		{
-			j = 0;
-			while (j < ph->sh->tab[0])
-			{
-				kill(ph->sh->ph_pid[j], SIGTERM);
-				j++;
-			}
-		}
-		i++;
-	}
-		printf("lol%d\n", ph->sh->stop);
-	if (ph->sh->stop == 1)
-	{
-		printf("%ld %d died\n",
-		ph->sh->time, ph->sh->index);
+		waitpid(-1, &my->status, 0);
+		my->j = 0;
+		if (WIFEXITED(my->status) == 1 && WEXITSTATUS(my->status) == 2)
+			while (my->j < ph->sh->tab[0])
+				kill(ph->sh->ph_pid[my->j++], SIGTERM);
+		my->i++;
 	}
 	free(ph->sh->ph_pid);
-	// exit(0);
 }
 
 int	main(int ac, char **av)
@@ -113,6 +93,6 @@ int	main(int ac, char **av)
 	if (ph == NULL)
 		return (ft_free_all(NULL, sh, my, 1), 1);
 	ph = ft_init_ph(my, sh, ph, ac);
-	ft_create_process(ph);
+	ft_create_process(ph, my);
 	return (ft_free_all(ph, sh, my, 0), 0);
 }
